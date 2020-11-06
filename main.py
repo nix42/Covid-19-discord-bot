@@ -18,9 +18,9 @@ async def on_ready():
 async def all(ctx):
     latest = covid19.getLatest()
     allEmbed = discord.Embed(title='Covid-19 information worldwide')
-    allEmbed.add_field(name='Cases', value=latest['confirmed'])
-    allEmbed.add_field(name='Deaths', value=latest['deaths'])
-    allEmbed.add_field(name='Recovered', value=latest['recovered'])
+    allEmbed.add_field(name='Cases', value=('{:,}'.format(latest['confirmed'])))
+    allEmbed.add_field(name='Deaths', value=('{:,}'.format(latest['deaths'])))
+    allEmbed.add_field(name='Recovered', value=('{:,}'.format(latest['recovered'])))
     await ctx.send(embed=allEmbed)
     #get total num of cases/deaths/recovered
 
@@ -28,7 +28,7 @@ async def all(ctx):
 async def allCases(ctx):
     latest = covid19.getLatest()
     allEmbed = discord.Embed(title='Covid-19 confirmed cases worldwide')
-    allEmbed.add_field(name='Cases', value=latest['confirmed'])
+    allEmbed.add_field(name='Cases', value=('{:,}'.format(latest['confirmed'])))
     await ctx.send(embed=allEmbed)
     #get total num of cases/deaths/recovered
 
@@ -36,7 +36,7 @@ async def allCases(ctx):
 async def allDeaths(ctx):
     latest = covid19.getLatest()
     allEmbed = discord.Embed(title='Covid-19 deaths worldwide')
-    allEmbed.add_field(name='Deaths', value=latest['deaths'])
+    allEmbed.add_field(name='Deaths', value=('{:,}'.format(latest['deaths'])))
     await ctx.send(embed=allEmbed)
     #get total num of cases/deaths/recovered
 
@@ -44,7 +44,7 @@ async def allDeaths(ctx):
 async def allRecovered(ctx):
     latest = covid19.getLatest()
     allEmbed = discord.Embed(title='Covid-19 recovered worldwide')
-    allEmbed.add_field(name='Deaths', value=latest['recovered'])
+    allEmbed.add_field(name='Deaths', value=('{:,}'.format(latest['recovered'])))
     await ctx.send(embed=allEmbed)
     #get total num of cases/deaths/recovered
 
@@ -54,7 +54,7 @@ async def allRecovered(ctx):
 async def cases(ctx, country):
     casesByCountry = covid19.getLocationByCountryCode(country)
     casesEmbed = discord.Embed(title='Covid-19 confirmed cases')
-    casesEmbed.add_field(name='Cases', value=casesByCountry[0]['latest']['confirmed'])
+    casesEmbed.add_field(name='Cases', value=('{:,}'.format(casesByCountry[0]['latest']['confirmed'])))
     await ctx.send(embed=casesEmbed)
     #get total num of confirmed cases for a country
 
@@ -62,7 +62,7 @@ async def cases(ctx, country):
 async def deaths(ctx, country):
     casesByCountry = covid19.getLocationByCountryCode(country)
     deathsEmbed = discord.Embed(title='Covid-19 confirmed deaths')
-    deathsEmbed.add_field(name='Deaths', value=casesByCountry[0]['latest']['deaths'])
+    deathsEmbed.add_field(name='Deaths', value=('{:,}'.format(casesByCountry[0]['latest']['deaths'])))
     await ctx.send(embed=deathsEmbed)
     #get total num of deaths
     
@@ -70,7 +70,7 @@ async def deaths(ctx, country):
 async def recovered(ctx, country):
     casesByCountry = covid19.getLocationByCountryCode(country)
     recEmbed = discord.Embed(title='Covid-19 recovered in')
-    recEmbed.add_field(name='Recovered', value=casesByCountry[0]['latest']['recovered'])
+    recEmbed.add_field(name='Recovered', value=('{:,}'.format(casesByCountry[0]['latest']['recovered'])))
     await ctx.send(embed=recEmbed)
     #get total num of recovered
 
