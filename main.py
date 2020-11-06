@@ -15,22 +15,62 @@ async def on_ready():
 
 @bot.command()
 async def all(ctx):
-    await 
+    latest = covid19.getLatest()
+    allEmbed = discord.Embed(title='Covid-19 information worldwide')
+    allEmbed.add_field(name='Cases', value=latest['confirmed'])
+    allEmbed.add_field(name='Deaths', value=latest['deaths'])
+    allEmbed.add_field(name='Recovered', value=latest['recovered'])
+    await ctx.send(embed=allEmbed)
     #get total num of cases/deaths/recovered
 
 @bot.command()
-async def cases(ctx, message, country):
-    pass
-    #get total num of confirmed cases
+async def allCases(ctx):
+    latest = covid19.getLatest()
+    allEmbed = discord.Embed(title='Covid-19 confirmed cases worldwide')
+    allEmbed.add_field(name='Cases', value=latest['confirmed'])
+    await ctx.send(embed=allEmbed)
+    #get total num of cases/deaths/recovered
 
 @bot.command()
-async def deaths(ctx, message, country):
-    pass
+async def allDeaths(ctx):
+    latest = covid19.getLatest()
+    allEmbed = discord.Embed(title='Covid-19 deaths worldwide')
+    allEmbed.add_field(name='Deaths', value=latest['deaths'])
+    await ctx.send(embed=allEmbed)
+    #get total num of cases/deaths/recovered
+
+@bot.command()
+async def allRecovered(ctx):
+    latest = covid19.getLatest()
+    allEmbed = discord.Embed(title='Covid-19 recovered worldwide')
+    allEmbed.add_field(name='Deaths', value=latest['recovered'])
+    await ctx.send(embed=allEmbed)
+    #get total num of cases/deaths/recovered
+
+## --- COUNTRY SPECIFIC COMMANDS ---
+
+@bot.command()
+async def cases(ctx, country):
+    casesByCountry = covid19.getLocationByCountryCode(country)
+    casesEmbed = discord.Embed(title='Covid-19 confirmed cases')
+    casesEmbed.add_field(name='Cases', value=casesByCountry[0]['latest']['confirmed'])
+    await ctx.send(embed=casesEmbed)
+    #get total num of confirmed cases for a country
+
+@bot.command()
+async def deaths(ctx, country):
+    casesByCountry = covid19.getLocationByCountryCode(country)
+    deathsEmbed = discord.Embed(title='Covid-19 confirmed deaths')
+    deathsEmbed.add_field(name='Deaths', value=casesByCountry[0]['latest']['deaths'])
+    await ctx.send(embed=deathsEmbed)
     #get total num of deaths
     
 @bot.command()
-async def recovered(ctx, message, country):
-    pass
+async def recovered(ctx, country):
+    casesByCountry = covid19.getLocationByCountryCode(country)
+    recEmbed = discord.Embed(title='Covid-19 recovered in')
+    recEmbed.add_field(name='Recovered', value=casesByCountry[0]['latest']['recovered'])
+    await ctx.send(embed=recEmbed)
     #get total num of recovered
 
 
