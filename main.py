@@ -6,6 +6,7 @@ from discord.ext import tasks, commands
 prefix = '/'
 
 bot = commands.Bot(command_prefix = prefix)
+bot.remove_command('help')
 
 covid19 = COVID19Py.COVID19(url='https://covid-tracker-us.herokuapp.com')
 
@@ -47,7 +48,7 @@ async def allRecovered(ctx):
     await ctx.send(embed=allEmbed)
     #get total num of cases/deaths/recovered
 
-## --- COUNTRY SPECIFIC COMMANDS ---
+## --- COUNTRY SPECIFIC COMMANDS --- ##
 
 @bot.command()
 async def cases(ctx, country):
@@ -73,5 +74,16 @@ async def recovered(ctx, country):
     await ctx.send(embed=recEmbed)
     #get total num of recovered
 
+@bot.command()
+async def help(message):
+    helpC = discord.Embed(title="Covid-19 bot command guide", description="discord bot built for providing Covid-19 statistics")
+    helpC.add_field(name="all", value="Displays data for cases, deaths and recovered worldwide", inline=False)
+    helpC.add_field(name="allCases", value="Displays all cases", inline=False)
+    helpC.add_field(name="allDeaths", value="Displays all deaths", inline=False)
+    helpC.add_field(name="allRecovered", value="Displays all recovered", inline=False)
+    helpC.add_field(name="cases <CountryCode>", value="Displays cases for a specific country", inline=False)
+    helpC.add_field(name="deaths <CountryCode>", value="Displays deaths for a specific country", inline=False)
+    helpC.add_field(name="recovered <CountryCode>", value="Displays recovered for a specific country", inline=False)
+    await message.channel.send(embed=helpC)
 
-bot.run('Nzc0MzAwODMyNDYzNTg1MzAw.X6Vx2A.IX0Ip79xusXL34yy2-EKJ_kY4mQ')
+bot.run('INSERT TOKEN HERE')
